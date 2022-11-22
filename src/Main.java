@@ -63,11 +63,19 @@ public class Main {
             }
             while (!active.isEmpty()) {
                 ordering.add(active.get(0));
+                //System.out.println(active.get(0));
                 for (int j = 0; j < graph.getSize(); j++) {
-
+                    if (graph.isEdge(graph.lookup(active.get(0)), j) == true) {
+                        graph.removeEdge(graph.lookup(active.get(0)), j);
+                        if (noEdge(String.valueOf(graph.getValue(j))) == true) {
+                            active.add(String.valueOf(graph.getValue(j)));
+                        }
+                    }
                 }
                 active.remove(0);
-                System.out.println("test");
+            }
+            for (int j = 0; j < ordering.size(); j++) {
+                //System.out.println(ordering.get(i));
             }
 
 
