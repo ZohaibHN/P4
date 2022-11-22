@@ -34,6 +34,11 @@ public class Main {
 
     public static void main(String args[]) {
         String name = args[0]; //reads file name from program parameter
+        String fileExtenstion = (name.substring(name.lastIndexOf(".") + 1)); //gets file extension
+        if (!fileExtenstion.equals("txt")) { //checks if file has txt extension
+            System.out.println("Invalid file type");
+            System.exit(-1);
+        }
         active = new ArrayList<String>(); //declares active arraylist
         ordering = new ArrayList<String>(); //declares ordering arraylist
         File fi = new File("src/" + name); //filepath
