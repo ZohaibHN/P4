@@ -34,8 +34,8 @@ public class Main {
 
     public static void main(String args[]) {
         String name = args[0]; //reads file name from program parameter
-        String fileExtenstion = (name.substring(name.lastIndexOf(".") + 1)); //gets file extension
-        if (!fileExtenstion.equals("txt")) { //checks if file has txt extension
+        String fileExtension = (name.substring(name.lastIndexOf(".") + 1)); //gets file extension
+        if (!fileExtension.equals("txt")) { //checks if file has txt extension
             System.out.println("Invalid file type");
             System.exit(-1);
         }
@@ -54,7 +54,6 @@ public class Main {
             while(scan.hasNext()) { //read file with first scanner
 
                 String line = scan.next(); //reads first class name
-                //System.out.println(line + " " + i);
                 graph.setValue(i, line); //create a node with class
                 scan.nextLine(); //goes to next line
                 i++;
@@ -64,8 +63,6 @@ public class Main {
                 int loop = secondScan.nextInt(); //reads number of prerequisites following the first class name
                     for (int j = 0; j < loop; j++) { //loop to go through each number of prerequisites
                         String secondClass = secondScan.next(); //reads class that is prerequisite
-                        //System.out.println(firstClass + " FIRST");
-                        //System.out.println(secondClass + " SECONG");
                          graph.insertEdge(graph.lookup(secondClass), graph.lookup(firstClass));
                     }
             }
