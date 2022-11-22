@@ -5,27 +5,39 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static Graph graph;
-    static ArrayList<String> active;
-    static ArrayList<String> ordering;
+    static Graph graph; //initial graph
+    static ArrayList<String> active; //active set made as ArrayList
+    static ArrayList<String> ordering;//ordering made as ArrayList
 
-    public static boolean noEdge(String name) {
-        boolean result = true;
-        int num = graph.lookup(name);
-        for (int i = 0; i < graph.getSize(); i++) {
-            if (graph.isEdge(i, num) == true) {
-                return false;
+    public static boolean noEdge(String name) { //checks if node has an edge or not
+        boolean result = true; //initial boolean result
+        int num = graph.lookup(name); //reference to index of node
+        for (int i = 0; i < graph.getSize(); i++) { //for loop to go through the whole graph
+            if (graph.isEdge(i, num) == true) { //checks if edge is going into node that was passed into method
+                return false; //returns false and breaks the loop
             }
         }
-        return result;
+        return result; //returns true if loop goes all the way through
+    }
+
+    public static boolean noedgeGraph() { //method to check if graph has edges
+        boolean result = true; //initial boolean result
+        for (int i = 0; i < graph.getSize(); i++) { //nested for loop to go through graph
+            for (int j = 0; j < graph.getSize(); j++) {
+                if (graph.isEdge(i, j) == true) { //checks if there is an edge
+                    return false; //returns false to break the loop
+                }
+            }
+        }
+        return result; //returns true if loop goes through all the way
     }
 
     public static void main(String args[]) {
         //String[] line = new String[];
-        String name = args[0];
-        active = new ArrayList<String>();
-        ordering = new ArrayList<String>();
-        File fi = new File("src/" + name);
+        String name = args[0]; //reads file name from program parameter
+        active = new ArrayList<String>(); //declares active arraylist
+        ordering = new ArrayList<String>(); //declares ordering arraylist
+        File fi = new File("src/" + name); //filepath
         try {
             FileInputStream file = new FileInputStream(fi); //first input stream to read file
             FileInputStream fileTwo = new FileInputStream(fi); //second input stream to read file
@@ -60,32 +72,37 @@ public class Main {
             //}
             for (int j = 0; j < graph.getSize(); j++) {
                 //System.out.println(graph.getValue(j) + "GGG");
-                if (noEdge(String.valueOf(graph.getValue(j))) == true) {
+                if (noEdge(String.valueOf(graph.getValue(j))) == true) { //to add nodes with no edge into active
                     active.add(String.valueOf(graph.getValue(j)));
                 }
             }
-            System.out.println(active.size() + " SIZE");
 
-            while (!active.isEmpty()) {
-                ordering.add(active.get(0));
-                //System.out.println(active.get(0));
-                for (int j = 0; j < graph.getSize(); j++) {
-                    if (graph.isEdge(graph.lookup(active.get(0)), j) == true) {
-                        graph.removeEdge(graph.lookup(active.get(0)), j);
-                        if (noEdge(String.valueOf(graph.getValue(j))) == true) {
-                            active.add(String.valueOf(graph.getValue(j)));
+            while (!active.isEmpty()) { //while active is not empty
+                ordering.add(active.get(0)); //adds index of active in ordering
+
+                for (int j = 0; j < graph.getSize(); j++) { //for loop to through entire graph
+                    if (graph.isEdge(graph.lookup(active.get(0)), j) == true) { //checks if node has an edge going into node
+                        graph.removeEdge(graph.lookup(active.get(0)), j); //removes edge
+                        if (noEdge(String.valueOf(graph.getValue(j))) == true) { //checks if second node has an edge going into it
+                            active.add(String.valueOf(graph.getValue(j))); //adds it to active if true
                         }
                     }
                 }
-
-                active.remove(0);
+                active.remove(0); //removes initial node from the active list
             }
+            if (noedgeGraph() == true) { //checks if there are edges in the graph
+                for (int j = 0; j < ordering.size(); j++) { //prints out the ordering list
+                    System.out.println(ordering.get(j));
+                }
+            } else { //if there are edges in the graph
+                System.out.println("Courses impossible to complete:"); //print statement
+                for (int j = 0; j < graph.getSize(); j++) { //goes through entire graph
+                   if (noEdge(String.valueOf(graph.getValue(j))) == false) { //prints out the nodes that have edges going into them
+                       System.out.println(String.valueOf(graph.getValue(j)));
+                   }
+                }
 
-            for (int j = 0; j < ordering.size(); j++) {
-                //System.out.println(ordering.get(i));
             }
-
-
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
