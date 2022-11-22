@@ -94,7 +94,7 @@ public class Main {
                     System.out.println(ordering.get(j));
                 }
             } else { //if there are edges in the graph
-                System.out.println("Courses impossible to complete:"); //print statement
+                System.out.println("Courses that cannot be completed are (in no specific order):"); //print statement
                 for (int j = 0; j < graph.getSize(); j++) { //goes through entire graph
                    if (noEdge(String.valueOf(graph.getValue(j))) == false) { //prints out the nodes that have edges going into them
                        System.out.println(String.valueOf(graph.getValue(j)));
