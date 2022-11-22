@@ -99,7 +99,7 @@ public class Main {
                 }
 
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) { //if file is not found
             System.out.println("File not found");
         }
     }
