@@ -77,6 +77,7 @@ public class Main {
                         }
                     }
                 }
+
                 active.remove(0);
             }
 
