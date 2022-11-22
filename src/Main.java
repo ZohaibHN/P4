@@ -33,7 +33,6 @@ public class Main {
     }
 
     public static void main(String args[]) {
-        //String[] line = new String[];
         String name = args[0]; //reads file name from program parameter
         active = new ArrayList<String>(); //declares active arraylist
         ordering = new ArrayList<String>(); //declares ordering arraylist
@@ -46,7 +45,6 @@ public class Main {
             int graphNum = Integer.parseInt(scan.nextLine()); //reads number to create graph size
             secondScan.nextLine(); //skips that number in the second scanner
             graph = new Graph<>(graphNum); //create the graph with the size read from file
-            System.out.println(graphNum); //test case
             int i = 0;
             while(scan.hasNext()) { //read file with first scanner
 
@@ -58,7 +56,6 @@ public class Main {
             }
             while(secondScan.hasNextLine()) { //Second scanner to read the file to assign edges
                 String firstClass = secondScan.next(); //reads first class in line
-                //System.out.println(firstClass + " TESTTTT"); //test
                 int loop = secondScan.nextInt(); //reads number of prerequisites following the first class name
                     for (int j = 0; j < loop; j++) { //loop to go through each number of prerequisites
                         String secondClass = secondScan.next(); //reads class that is prerequisite
@@ -67,11 +64,8 @@ public class Main {
                          graph.insertEdge(graph.lookup(secondClass), graph.lookup(firstClass));
                     }
             }
-            //for (int j = 0; j < graph.getSize(); j++) {
-            //    System.out.println(noEdge(String.valueOf(graph.getValue(j))) + " EDGE TEST");
-            //}
+
             for (int j = 0; j < graph.getSize(); j++) {
-                //System.out.println(graph.getValue(j) + "GGG");
                 if (noEdge(String.valueOf(graph.getValue(j))) == true) { //to add nodes with no edge into active
                     active.add(String.valueOf(graph.getValue(j)));
                 }
